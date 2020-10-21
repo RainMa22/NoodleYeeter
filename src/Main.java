@@ -42,7 +42,7 @@ public class Main {
             }
             for (int i = 0; i < dcollections.size(); i++) {
                 if (dcollections.get(i).x>1920+100&&dcollections.get(i).y+100>1080){
-                    i++;
+                    continue;
                 }
                 boolean b=dcollections.get(i).x==1920/2-collections.get(i).image.getWidth()/2
                         &&
@@ -52,14 +52,16 @@ public class Main {
                 dcollections.get(i).y+=5*Math.sin(Math.toRadians(collections.get(i).degree));
                 g2d.drawImage(dcollections.get(i).image,dcollections.get(i).x,dcollections.get(i).y,null);
                 temp2++;
+                g2d.dispose();
+                ImageIO.write(biii,"png", new File("final/"+String.valueOf(temp) + ".png"));
+                temp++;
+                biii=bii.getSubimage(0,0,bii.getWidth(),bii.getHeight());
                 if (b) break;
             //}
 
             }
 
-            g2d.dispose();
-            ImageIO.write(biii,"png", new File("final/"+String.valueOf(temp) + ".png"));
-            temp++;
+
 
         }
     }
