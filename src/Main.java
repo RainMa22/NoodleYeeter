@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Main {
     public static ArrayList<collection> collections=new ArrayList<collection>(0);
     public static void main(String[] args) throws Exception {
-        BufferedImage bi = ImageIO.read(new File("noodle2.jpeg"));
+        BufferedImage bi = ImageIO.read(new File("noodle2.png"));
         BufferedImage bii = new BufferedImage(1920
                 , 1080, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = (Graphics2D) bii.createGraphics();
@@ -22,23 +22,35 @@ public class Main {
             double b=Math.random()*360;
             collections.add(new collection(bi,op(bi,b),b));
         }
-        while(collections.get(collections.size()-1).x+100<=1920&&collections.get(collections.size()-1).y+100<=1080){
+        long temp=0;
+        boolean b1=collections.get(collections.size()-1).x-100<=1920&&collections.get(collections.size()-1).y-100<=1080;
+        boolean b2=collections.get(collections.size()-1).x+100<=0&&collections.get(collections.size()-1).y+100>=0;
+        while(b1||b2){
+            b1=collections.get(collections.size()-1).x-100<=1920&&collections.get(collections.size()-1).y-100<=1080;
+            b2=collections.get(collections.size()-1).x+100<=0&&collections.get(collections.size()-1).y+100>=0;
             BufferedImage biii=bii.getSubimage(0,0,bii.getWidth(),bii.getHeight());
             g2d=(Graphics2D) biii.createGraphics();
-            long temp=0;
+            ImageIO.write(collections.get(0).image,"png",new File("help.png"));
             for (int i = 0; i < collections.size(); i++) {
                 if (collections.get(i).x>1920+100&&collections.get(i).y+100>1080){
-                    continue;
+                    i++;
                 }
-                boolean b=collections.get(i).x==0&&collections.get(i).y==0;
-                collections.get(i).x+=5*Math.cos(Math.toRadians(collections.get(i).degree));
-                collections.get(i).y+=5*Math.sin(Math.toRadians(collections.get(i).degree));
+                boolean b=collections.get(i).x==1920/2-collections.get(i).image.getWidth()/2
+                        &&
+                        collections.get(i).y==1080/2-collections.get(i).image.getHeight()/2;
+                //for (int j = 0; j < 25; j++) {
+                collections.get(i).x+=125*Math.cos(Math.toRadians(collections.get(i).degree));
+                collections.get(i).y+=125*Math.sin(Math.toRadians(collections.get(i).degree));
                 g2d.drawImage(collections.get(i).image,collections.get(i).x,collections.get(i).y,null);
                 if (b) break;
+            //}
+
             }
+
             g2d.dispose();
             ImageIO.write(biii,"png", new File("final/"+String.valueOf(temp) + ".png"));
             temp++;
+
         }
     }
 

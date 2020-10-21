@@ -11,7 +11,7 @@ class collection{
     public collection(BufferedImage bi, AffineTransformOp op,double degree){
         image=op.filter(bi,null);
         this.degree=degree;
-        x=bi.getWidth()/2;
-        y=bi.getHeight()/2;
+        x=1920/2-bi.getWidth()/2;
+        y=1080/2-bi.getHeight()/2;
     }
 }
