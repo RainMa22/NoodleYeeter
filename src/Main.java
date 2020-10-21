@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static ArrayList<collection> collections=new ArrayList<collection>(0);
+    public static ArrayList<collection> dcollections=new ArrayList<collection>(0);
     public static void main(String[] args) throws Exception {
         BufferedImage bi = ImageIO.read(new File("noodle2.png"));
         BufferedImage bii = new BufferedImage(1920
@@ -23,25 +24,34 @@ public class Main {
             collections.add(new collection(bi,op(bi,b),b));
         }
         long temp=0;
+        int temp3=0;
         boolean b1=collections.get(collections.size()-1).x-100<=1920&&collections.get(collections.size()-1).y-100<=1080;
         boolean b2=collections.get(collections.size()-1).x+100<=0&&collections.get(collections.size()-1).y+100>=0;
+        byte temp2=0;
+        dcollections.add(collections.get(temp3));
         while(b1||b2){
             b1=collections.get(collections.size()-1).x-100<=1920&&collections.get(collections.size()-1).y-100<=1080;
             b2=collections.get(collections.size()-1).x+100<=0&&collections.get(collections.size()-1).y+100>=0;
             BufferedImage biii=bii.getSubimage(0,0,bii.getWidth(),bii.getHeight());
             g2d=(Graphics2D) biii.createGraphics();
             ImageIO.write(collections.get(0).image,"png",new File("help.png"));
-            for (int i = 0; i < collections.size(); i++) {
-                if (collections.get(i).x>1920+100&&collections.get(i).y+100>1080){
+            if (temp2>=25){
+                temp2%=25;
+                temp3++;
+                dcollections.add(collections.get(temp3));
+            }
+            for (int i = 0; i < dcollections.size(); i++) {
+                if (dcollections.get(i).x>1920+100&&dcollections.get(i).y+100>1080){
                     i++;
                 }
-                boolean b=collections.get(i).x==1920/2-collections.get(i).image.getWidth()/2
+                boolean b=dcollections.get(i).x==1920/2-collections.get(i).image.getWidth()/2
                         &&
-                        collections.get(i).y==1080/2-collections.get(i).image.getHeight()/2;
+                        dcollections.get(i).y==1080/2-collections.get(i).image.getHeight()/2;
                 //for (int j = 0; j < 25; j++) {
-                collections.get(i).x+=125*Math.cos(Math.toRadians(collections.get(i).degree));
-                collections.get(i).y+=125*Math.sin(Math.toRadians(collections.get(i).degree));
-                g2d.drawImage(collections.get(i).image,collections.get(i).x,collections.get(i).y,null);
+                dcollections.get(i).x+=5*Math.cos(Math.toRadians(collections.get(i).degree));
+                dcollections.get(i).y+=5*Math.sin(Math.toRadians(collections.get(i).degree));
+                g2d.drawImage(dcollections.get(i).image,dcollections.get(i).x,dcollections.get(i).y,null);
+                temp2++;
                 if (b) break;
             //}
 
