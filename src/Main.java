@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Main {
     public static ArrayList<collection> collections=new ArrayList<collection>(0);
     public static void main(String[] args) throws Exception {
-        BufferedImage bi = ImageIO.read(new File("noodle2.jpeg"));
+        BufferedImage bi = ImageIO.read(new File("noodle2.png"));
         BufferedImage bii = new BufferedImage(1920
                 , 1080, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = (Graphics2D) bii.createGraphics();
